@@ -1,0 +1,313 @@
+never
+// This is done to halt the program intentionally.
+function handleError(errmsg: string): never{
+        throw new Error(errmsg)
+}
+
+void
+function consoleError(errmsg: string): void{
+        console.log(errmsg)
+}
+
+//Objects
+const User = {
+        name: "ronald",
+        age: 10,
+        isRegistered: true
+}
+
+function createUser({name: string, isPaid: boolean}){
+}
+let newUser = {name: "john mark", isPaid: true, email: "ajm@gmail.com"}
+createUser(newUser)
+
+
+function publishUser():{name: string, age: number}{
+        return {name: "ronald", age: 11} 
+}
+
+
+//type aliases
+//Superior concept, == how do we implement the readonly and the question mark symbols(?)
+type User = {
+        readonly _id: number
+        name: string
+        age: number
+        creditCard: number
+}
+
+let myUser: User = {
+        _id: 135,
+        name: "ronald",
+        age: 15, 
+        creditCard: 1358308
+}
+myUser.age = 25
+
+//Arrays in ts
+const marvelActors: string[] = []
+
+
+type UserDetails = {
+        name: string
+        age: number
+}
+const allUsers: UserDetails[] = []
+allUsers.push({name: "ronald", age: 10})
+
+const data: (string | number | boolean)[] = [1, 2, 3, "ronald", "Ralph Waldo Emerson", true]
+
+let seatAllotment: "aisle" | "window" | "middle"
+seatAllotment = "aisle"
+seatAllotment = "middle"
+
+
+// tuples
+//This is a kind of array of different types, usually it is treated as such even in the manipulation of data.
+//This as well helps us in adding more strict types to the array types.
+//You can formally apply to the API Calls 
+//Meanwhile you can as well modify the values with different array methods such as shift(), 
+//unshift() , pop() as is the case with the normal arrays.
+
+let tUser: [string, number, boolean]
+tUser = ["kenjoy", 23, true]
+
+
+//enums
+const enum seatChoice {
+        AISLE, 
+        MIDDLE,
+        WINDOW
+}
+const aSeat = seatChoice.AISLE
+
+
+//interfaces
+//This highlights how different variables and methods are implemented in a given program
+interface ZUser {
+        readonly dbId: number,
+        email: string,
+        name: string,
+        startTrial: () => string,
+        getCoupon: (couponName: number, value: number) => string
+
+}
+
+const heatherInterface: ZUser = {
+        readonly dbId: 1234,
+        email: "ronaldssebalamu2@gmail.com",
+        name: "ronald Ssebalamu",
+        githubToken: "github",
+        startTrial: () => {
+                return "trial started!"
+        },
+        getCoupon: (name: 23, value: 10093) => {
+                return "Udemy Freebie course added to cart!"
+        }
+}
+
+//PC: Reopenning the interface
+//This improves our codebase and helps us add more fuctionality to our already existing interface.
+interface ZUser{
+        githubToken: string
+}
+
+//Classes in ts
+class Person{
+        name: string
+        email: string
+        constructor(name: string, email: string){
+                this.name = name
+                this.email = email
+        }
+}
+const details = new Person("ronald", "ronaldssebalamu2@gmail.com")
+
+//modifiers in ts
+//private, and public
+
+
+//Accessors and mutators,
+//getters and setters in ts
+class Junior{
+        private _courseCount = 1
+        constructor(
+                public name: string,
+                public email: string){
+
+                }
+                get getUserName(): string{
+                        return `User name is identified ${this.name}`
+                }
+                get getUserEmail(): string{
+                        return `User Email is known and identified ${this.email}`
+                }
+                set courseCount(courseNum: number){
+                        if (courseNum <= 1){
+                                throw new Error ("The Course count should always start from 1 upwards!")
+                        }
+                        this._courseCount = courseNum
+                }
+}
+//interfaces
+interface TakePhoto{
+        cameraMode: string
+        filter: string
+        burst: number
+}
+class Instagram implements TakePhoto{
+        constructor(
+                public cameraMode: string,
+                public filter: string,
+                public burst: number
+        ){}
+}
+// abstract classes
+// When we create an abstract class, we find that no new instance of a class can be 
+// created within the class,
+
+//we can create an object from the class which is inheriting it, 
+//forexample
+abstract class TakePhoto{
+        constructor(
+                public cameraMode: string,
+                public filter: string,
+                public burst: number
+        ){
+
+        }
+}
+class YouTube extends TakePhoto{
+        
+}
+const hc = new YouTube("test", "Test", 1)
+
+//Generics in ts
+function identity<T>(password: T):T {
+return password
+}
+function identityTwo <T>(password: Array<T>):T {
+        return password[2]
+}
+function identityThree<T>(args: T): T {
+        return args
+}
+interface Bottle{
+        brand: string,
+        type: number
+}
+identityThree<Bottle>({brand: "kei", type: 2})
+
+//Generics; Input is an array
+function identityFive<T>(snap: T[]): T{
+        const myIndex = 4
+        return snap[myIndex]
+}
+
+//extends in generics
+interface Database{
+        connectionUrl: string,
+        connectionName: string
+}
+function indentifySix<T, U extends Database>(valOne: T, valTwo: U){
+        return {
+                valOne,
+                valTwo
+        }
+}
+indentifySix(2,{connectionUrl: "sring", connectionName: "today!"})
+
+
+
+// Generics in classes
+class Sellable<T>{
+        public cart: T[] = []
+        addToCart(product: T){
+                this.cart.push(product)
+        }
+}
+
+// Read more about narrowing 
+// Nulls and arrays are considered as objects in typescript or in javascript in general
+
+
+type Fish = {
+        swim: ()=> void
+}
+type Bird = {
+        fly: ()=> void
+}
+
+function isFish(pet: Fish | Bird): pet is Fish{
+        return (pet as Fish).swim !== undefined
+}
+function getFood(pet: Fish | Bird){
+        if(isFish(pet)){
+                pet
+                return "fish food"
+        }
+        else{
+                return "bird food"
+        }
+}
+
+// The in Operator in Narrowing or Type Narrowing,
+
+interface User1{
+        name: string
+        email: string
+}
+
+interface Admin{
+        name: string
+        email: string
+        isAdmin: boolean
+}
+
+function isAdminAccount(account: User | Admin){
+        if("isAdmin" in account){
+                return account.isAdmin
+        }
+}
+
+// instanceof Narrowing
+function logValue(x: Date | string){
+        if(x instanceof Date){
+                console.log(x.toUTCString)
+        }else{
+                console.log(x.toLowerCase)
+        }
+}
+
+//Type predicates
+
+// function isFish(pet: Fish | Bird): pet is Fish{
+//         return (pet as Fish).swim !== undefined
+// } 
+
+// Discriminative Unions
+
+type Circle = {
+        kind: "circle"
+        radius: number
+}
+type Rectangle = {
+        kind: "rectangle"
+        length: number
+        width: number
+}
+
+type Shape = Circle | Rectangle
+
+function getExactShape(shape: Shape){
+        if (shape.kind === "circle"){
+                return Math.PI * shape.radius ** 2
+        }else{
+                return shape.length * shape.width
+        }
+}
+
+// Exhausitive checking
+// Read further on this topic
+
+export {}
