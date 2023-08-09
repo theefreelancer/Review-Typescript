@@ -57,6 +57,20 @@ allUsers.push({name: "ronald", age: 10})
 
 const data: (string | number | boolean)[] = [1, 2, 3, "ronald", "Ralph Waldo Emerson", true]
 
+const farmerReport: (string | number | boolean)[] = [1, 2, 3, 4 , 5, 6, 7, 8, 9 , 0, " martin Luther King Jr", "NUCAFE", " Kyagalanyi Coffee", "UCDA", true ]
+
+// Array methods in Typescript 
+
+.map()                            .reduce()     .shift()
+.filter()                        .find()        .unshift()
+.sort()                          .findIndex()
+.forEach()                        .indexOf()
+.concat()                       .fill()
+.every()                        .slice()
+.some()                         .reverse()
+.includes()                     .push()
+.join()                          .pop()
+
 let seatAllotment: "aisle" | "window" | "middle"
 seatAllotment = "aisle"
 seatAllotment = "middle"
